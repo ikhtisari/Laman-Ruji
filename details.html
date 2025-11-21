@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+
+<html>
+<head>
+  <meta charset="utf-8">
+  <link rel="stylesheet" href="static/styles.css">
+  <link rel="icon" href="favicon.png">
+  <title>Ruji - Penukar Rumi Kepada Jawi & Jawi Kepada Rumi</title>
+  <script defer src="static/rumi-jawi.js"></script>
+  <script defer src="static/main.js"></script>
+</head>
+
+<body>
+
+   <style> body {background-image: url(''); background-repeat: no-repeat; background-attachment: fixed; background-size: 100% 100%;}
+ </style>
+
+
+  <div class="top">
+    <header>
+      <h1>Ruji - Penukar Rumi Kepada Jawi & Jawi Kepada Rumi</h1>
+    </header>
+    <nav>
+      <a class="at" href="index.html">Halaman Utama</a>
+      &bull;
+      <a href="about.html">Mengenai Rumi & Jawi</a>
+      &bull;
+      <a href="qa.html">Soalan & Jawapan</a>
+      &bull;
+      <a href="details.html">Butiran Teknikal</a>
+    </nav>
+  </div>
+
+  <main>
+    <h1>Butiran Teknikal Penukar Ruji</h1>
+    <article>
+      <h2>Perincian Algoritma</h2>
+      <p class="justify">Intisari penukar Rumi–Jawi ialah kaedah berasaskan kamus, 
+	  yakni setiap perkataan Rumi atau Jawi dirujuk dalam kamus lalu, jika wujud, 
+	  dipetakan kepada satu atau lebih bentuk dalam tulisan yang satu lagi. 
+	  Hasilnya dicantumkan menjadi satu di dalam kotak output. Proses ini mempunyai 
+	  beberapa langkah tambahan seperti yang dihuraikan di bawah.</p>
+      <h3>Langkah 1: Penokenan</h3>
+      <p class="justify">Komputer tidak memahami konsep perkataan, maka, dari 
+	  perspektif penukar, kotak input hanya mengandungi jujukan aksara. Penokenan 
+	  ialah proses mengenal pasti sempadan perkataan (atau lebih umum, sempadan 
+	  token) dalam jujukan aksara ini. Berbeza dengan bahasa seperti Cina atau Jepun, 
+	  bahasa Melayu ditulis dalam Rumi dan Jawi dengan ruang antara perkataan, dan ini 
+	  memudahkan tugas tersebut. Namun, masih terdapat beberapa cabaran seperti tanda 
+	  baca. Jika perkataan hanya dipisahkan pada ruang, sistem mungkin menganggap "makan," 
+	  (termasuk koma) sebagai satu perkataan dan gagal mencari entri dalam kamus, sedangkan 
+	  ia boleh menemui "makan" (tanpa koma).</p>
+      <p class="justify">Dalam penukar ini, jujukan aksara huruf (Latin atau Arab) dikumpulkan 
+	  menjadi token yang ditukar, sementara ruang kosong dan kebanyakan tanda baca diabaikan. 
+	  Namun, tanda sempang (-) kerap digunakan dalam Rumi dan Jawi untuk penggandaan, lalu ia 
+	  dimasukkan ke dalam token perkataan. Tanda koma, koma bertitik, dan tanda tanya mempunyai 
+	  rupa yang berbeza dalam Rumi dan Jawi, lalu dikendalikan secara khas.
+      </p>
+
+      <h3>Langkah 2: Penormalan</h3>
+      <p class="justify">Setelah perkataan dikenal pasti melalui penokenan, ia dihantar kepada 
+	  fungsi penukaran bergantung pada arah penukaran (Rumi-ke-Jawi atau Jawi-ke-Rumi), dan 
+	  langkah pertama penukaran ialah penormalan. Langkah ini mengurangkan variasi yang boleh 
+	  menyukarkan penukaran.</p>
+      <p>Dalam penukaran Rumi-ke-Jawi, satu-satunya penormalan yang dilakukan ialah pengecilan huruf. 
+	  Komputer melihat A dan a sebagai huruf yang berbeza, jadi jika kamus mengandungi perkataan 
+	  seperti kuning, ia tidak akan menemui Kuning.</p>
+      <p class="justify">Dalam penukaran Jawi-ke-Rumi, tiada pengecilan huruf kerana Jawi tidak mempunyai
+	  huruf besar dan kecil, tetapi terdapat sebab lain untuk variasi. Dalam Jawi, huruf pilihan untuk bunyi
+	  /k/ ialah ک berbanding kaf Arab ك, tetapi sesetengah dokumen menggunakan yang kedua, jadi ini 
+	  dinormalkan kepada yang pertama. Begitu juga, Jawi menggunakan ݢ untuk bunyi /g/, tetapi kadangkala
+	  orang menggunakan گ atau ڬ, maka kedua-dua yang terakhir ini dinormalkan kepada yang pertama.</p>
+      <p class="justify">Untuk penukaran kedua-dua arah, tanda koma, koma bertitik, dan tanda tanya digantikan 
+	  dengan versi yang sesuai.</p>
+
+      <h3>Langkah 3: Analisis Morfologi</h3>
+      <p class="justify">Bahasa Melayu mempunyai sistem morfologi yang kukuh dengan awalan dan akhiran yang, 
+	  misalnya, mengubah kata dasar ajar kepada pelajar, ajaran, pelajaran, belajar, mengajar, dan lain-lain. 
+	  Setiap perkataan ini perlu ada dalam kamus untuk ditukar, tetapi sistem boleh menjadi lebih kukuh jika 
+	  dapat mengesan imbuhan ini dan menukarnya secara berasingan, kerana ia hanya perlu mengandungi kata 
+	  dasar dan imbuhan.</p>
+      <p>Penukar ini belum melakukan analisis morfologi yang secanggih itu, tetapi jika ia gagal mencari perkataan 
+	  dalam kamus, perkataan berakhir dengan lah/له (satu akhiran wacana biasa), dan perkataan tanpa 
+	  akhiran wujud dalam kamus, maka perkataan dan akhiran itu ditukar secara berasingan. Untuk penukaran 
+	  Jawi-ke-Rumi, perkataan yang bermula dengan د (di) ditukar secara berasingan apabila keseluruhan perkataan 
+	  tidak ada dalam kamus. Ini kerana kata adposisi di kadangkala melekat pada perkataan dalam Jawi sedangkan 
+	  ia merupakan perkataan berasingan dalam Rumi.</p>
+
+      <h3>Langkah 4: Pencarian Kamus</h3>
+      <p class="justify">Setelah semua penokenan, penormalan, dan analisis morfologi selesai, langkah pencarian 
+	  kamus yang sebenar adalah mudah: jika perkataan ada dalam kamus, bentuk yang dipetakan digunakan; jika tidak, 
+	  perkataan asal dikekalkan..</p>
+    </article>
+    <article>
+      <h1>Butiran Paparan</h1>
+      <p class="justify">Selain perincian algoritma penukaran, terdapat beberapa teknikaliti tambahan 
+	  dalam cara hasil dipersembahkan.</p>
+
+      <h3>Jenis Tulisan</h3>
+      <p class="justify">Jawi ialah tulisan Arab tetapi ia menggunakan aksara yang tidak terdapat dalam bahasa Arab, 
+	  jadi adalah penting untuk memilih fon yang mengandungi glif untuk aksara ini. Laman web ini menggunakan <a
+      href="https://www.google.com/get/noto/#naskh-arab">Noto Naskh
+      Arabic</a> dari Google kerana ia mengandungi glif ini dan merupakan jenis muka yang neutral tanpa banyak hiasan.</p>
+
+      <h3>Arah penulisan</h3>
+      <p class="justify">Oleh sebab tulisan Arab seperti Jawi ditulis dari kanan ke kiri dan tulisan Latin seperti 
+	  Rumi ditulis dari kiri ke kanan, kotak input dan output penukar ditentukan dengan arah ini supaya teks
+	  dipaparkan dengan betul. Apabila butang "Tukar Arah" diklik, arah ini diterbalikkan.</p>
+
+      <h3>Alternatif</h3>
+      <p class="justify">Terkadang suatu perkataan, sama ada dalam Rumi atau Jawi, mempunyai beberapa calon untuk penukaran. 
+	  Misalnya, dan boleh ditulis sebagai دن atau دان dalam Jawi, manakala سمبيلن boleh merujuk kepada sembilan atau sambilan. 
+	  Penukar ini berusaha membantu pengguna memilih bentuk yang tepat dengan menonjolkan penukaran yang kabur dalam warna biru.
+	  <p>Dengan mengklik perkataan berwarna biru tersebut, senarai pilihan penukaran akan dipaparkan di bahagian atas kotak output, 
+	  bersama-sama dengan bentuk asal. Pengguna kemudian boleh memilih pilihan penukaran yang diingini untuk digunakan dalam output.</p>
+	  <p>Namun, berhati-hatilah kerana sebarang perubahan pada kandungan kotak input, seperti menaip aksara atau menukar arah penukaran, 
+	  akan menghapuskan semua pilihan yang telah dibuat. Oleh itu, lakukan pemilihan sedemikian hanya apabila input 
+	  tidak akan berubah lagi.</p>
+    </article>
+  </main>
+
+</body>
+
+</html>
